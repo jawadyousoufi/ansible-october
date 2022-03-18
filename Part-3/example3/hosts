@@ -1,0 +1,6 @@
+[db]
+db1 ansible_host=165.227.99.127 ansible_user=ec2-user
+
+[web]
+web1 ansible_host=165.227.99.214 ansible_user=centos
+

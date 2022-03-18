@@ -1,0 +1,30 @@
+- hosts: web
+  tasks:
+  - name: Install httpd and PHP 7.3
+    yum:
+      name:
+      - httpd
+      - php73
+    register: httpd_php_7_3
+    when:
+    - php_version == "7.3"
+    - ansible_os_family == "RedHat"
+
+  - name: Install httpd and PHP 7.4
+    yum:
+      name:
+      - httpd
+      - php74
+    register: httpd_php_7_4
+    when: php_version == "7.4" or php_version == "7"
+
+  - name: Start httpd
+    systemd:
+      state: restarted
+      enabled: yes
+      name: httpd
+    when: httpd_php_7_3.changed or httpd_php_7_4.changed 
+
+
+
+

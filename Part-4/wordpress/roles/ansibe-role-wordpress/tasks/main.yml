@@ -1,0 +1,24 @@
+- name: Download WordPress
+  unarchive:
+    src: https://wordpress.org/latest.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Move WordPress Files
+  shell: "mv /tmp/wordpress/* /var/www/html/"
+  args:
+    creates: /var/www/html/index.php
+
+- name: Fix File Permissions
+  file:
+    path: /var/www/html
+    owner: apache
+    group: apache
+    recurse: yes
+
+# Jinja Templates 
+- name: Copy wp-config.php file
+  template:
+    src: wp-config.php.j2
+    dest: /var/www/html/wp-config.php
+

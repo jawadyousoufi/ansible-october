@@ -1,0 +1,26 @@
+- hosts: all
+  tasks:
+  - name: Disable SELinux
+    selinux:
+      state: disabled
+
+  - name: Install Apache
+    import_role:
+      name: ansibe-role-apache
+    when: "'web' in inventory_hostname"
+
+  - name: Install PHP
+    import_role:
+      name: ansibe-role-php
+    when: "'web' in inventory_hostname"
+  
+  - name: Install WordPress
+    import_role:
+      name: ansibe-role-wordpress
+    when: "'web' in inventory_hostname"
+
+  - name: Install MySQL
+    import_role:
+      name: ansibe-role-mysql
+    when: "'db' in inventory_hostname"
+      

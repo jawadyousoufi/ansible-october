@@ -1,0 +1,21 @@
+- name: Install ntpd
+  yum:
+    name: ntp
+    state: present
+  notify: restart ntpd
+
+- name: Update ntpd config
+  lineinfile:
+    path: /etc/ntp.conf
+    regexp: '^server.*iburst$'
+    line: 'server ntpd.example.com iburst'
+  notify: restart ntpd
+
+- name: Remove ntpd old config
+  lineinfile:
+    path: /etc/ntp.conf
+    regexp: '^server [0-9].*iburst$'
+    state: absent
+    backup: yes
+  notify: restart ntpd
+

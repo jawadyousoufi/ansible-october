@@ -1,0 +1,12 @@
+- name: Install MySQL Server and Client
+  yum:
+    name:
+      - mariadb-server
+      - mariadb
+    state: present
+
+- name: Start MySQL Server
+  systemd:
+    name: mariadb
+    state: started
+    enabled: yes

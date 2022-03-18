@@ -1,0 +1,5 @@
+- hosts: all
+  tasks: 
+  - name: Install ntpd
+    import_role:
+      name: ansible-ntpd-role

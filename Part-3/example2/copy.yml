@@ -1,0 +1,14 @@
+- hosts: db
+  tasks:
+  - name: Check date
+    shell: date +%b-%d
+    register: current_date
+
+  - name: Print Variable
+    debug:
+      msg: "Variable is: {{ current_date.stdout }}"
+
+  - name: Copy file
+    copy:
+      src: /etc/services
+      dest: /etc/{{ current_date.stdout }}-file
